@@ -1,0 +1,20 @@
+{
+  "name": "bacmbot",
+  "version": "1.0.0",
+  "description": "Telegram bot for webdollar \u001b[D\u001b[D\u001b[D\u001b[F\u001b[F\u001b[B\u001b[\u001b[B",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "bacm",
+    "webdollar",
+    "pool"
+  ],
+  "author": "manu22",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
