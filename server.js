@@ -48,7 +48,7 @@ setInterval(function(){
         .catch(function (error) {
             console.log(error);
         }); 
-}, 5000);
+}, 15000);
 
 function getLastBlockIdFromDb(){
     let DB = JSON.parse(fs.readFileSync('db.json', 'utf8'));
