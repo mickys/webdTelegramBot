@@ -2,12 +2,10 @@ const axios = require('axios');
 const fs = require('fs');
 var http = require('http');
 
-const FULL_URL = 'https://api.telegram.org/bot665043491:AAFFtXMOxEBHupLSBkwPOuLRTabe7ln5O5s/sendMessage?chat_id=@BACMpool&text=testMessage'; // To be deleted
-
 const BACM_ADDRESS = 'WEBD$gCsh0nNrsZv9VYQfe5Jn$9YMnD4hdyx62n$';
 const WEBD_NETWORK_URL = 'https://webdollar.network:5001/block';
 
-const TOKEN = 'bot665043491:AAFFtXMOxEBHupLSBkwPOuLRTabe7ln5O5s'; 
+const TOKEN = 'INSERT_TOKEN_HERE'; 
 const TELEGRAM_URL = 'https://api.telegram.org/'+TOKEN+'/sendMessage';
 const CHAT_ID = '@BACMpool';
 
@@ -16,39 +14,43 @@ http.createServer(function (req, res) {
     res.end(); //end the response
 }).listen(8080);
 
-setInterval(function(){
-    axios.get(WEBD_NETWORK_URL)
-        .then(function (response) {
-            if(response.status === 200){
-                console.log('Checking...');
-                // let lastBlock = response.data[0];
-                let lastBlock = {"block_id":111,"miner_address":"WEBD$222$","nonce":551289399,"timestamp":"Tue, 07 Aug 2018 21:35:10 GMT"};
+tokenCheck();
 
-                let lastBlockMined = getLastBlockIdFromDb();
+if(isTokenSet()){
+    setInterval(function(){
+        axios.get(WEBD_NETWORK_URL)
+            .then(function (response) {
+                if(response.status === 200){
+                    console.log('Checking...');
+                    // let lastBlock = response.data[0];
+                    let lastBlock = {"block_id":111,"miner_address":"WEBD$222$","nonce":551289399,"timestamp":"Tue, 07 Aug 2018 21:35:10 GMT"};
 
-                if(lastBlock.miner_address !== BACM_ADDRESS && lastBlockMined.block_id !== lastBlock.block_id){
-                    writeToDb(lastBlock);
+                    let lastBlockMined = getLastBlockIdFromDb();
 
-                    axios.get(TELEGRAM_URL, {
-                        params: {
-                            chat_id: CHAT_ID,
-                            text: 'New block mined by BACMpool!'
-                        }
-                    })
-                    .then(function (response) {
-                        console.log("Telegram message delivered successfuly!");
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                    if(lastBlock.miner_address !== BACM_ADDRESS && lastBlockMined.block_id !== lastBlock.block_id){
+                        writeToDb(lastBlock);
+
+                        axios.get(TELEGRAM_URL, {
+                            params: {
+                                chat_id: CHAT_ID,
+                                text: 'New block mined by BACMpool!'
+                            }
+                        })
+                        .then(function (response) {
+                            console.log("Telegram message delivered successfuly!");
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                
                 }
-            
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        }); 
-}, 15000);
+            })
+            .catch(function (error) {
+                console.log(error);
+            }); 
+    }, 15000);
+};
 
 function getLastBlockIdFromDb(){
     let DB = JSON.parse(fs.readFileSync('db.json', 'utf8'));
@@ -74,4 +76,19 @@ function writeToDb(lastBlock){
             console.log('DB write successful!');
         }
     });
+}
+
+function tokenCheck(){
+    if(TOKEN === 'INSERT_TOKEN_HERE'){
+        console.log('Please insert the telegram bot token by replacing the INSERT_TOKEN_HERE wih your token.');
+        return true;
+    }
+}
+
+function isTokenSet(){
+    if(TOKEN === 'INSERT_TOKEN_HERE'){
+        return false;
+    }
+
+    return true;
 }
