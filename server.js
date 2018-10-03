@@ -30,7 +30,7 @@ if (isTokenSet()) {
                     if (lastBlock.miner === BACM_ADDRESS && lastBlockMined.number !== lastBlock.number) {
                         writeLastBlockToDb(lastBlock);
 
-                        const message = 'New block mined by BACMpool! #' + lastBlockMined.number
+                        const message = 'New block mined by BACMpool! #' + lastBlock.number
                         console.log(message);
 
                         axios.get(TELEGRAM_URL, {

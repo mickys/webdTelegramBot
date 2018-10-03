@@ -1,1 +1,26 @@
-{"blocksMined":[{"block_id":208153,"miner_address":"WEBD$gCsh0nNrsZv9VYQfe5Jn$9YMnD4hdyx62n$","nonce":551289399,"timestamp":"Tue, 07 Aug 2018 21:35:10 GMT"}],"paymentsSent":[{"blockId":210237,"value":47661.2435,"timestamp":"Wed, 08 Aug 2018 22:22:20 GMT"},{"blockId":210450,"value":11551.3014},{"block_number":324958,"from_amount":59041651,"timestamp":1538606407}]}
+{
+    "blocksMined": [
+        {
+            "block_id": 208153,
+            "miner_address": "WEBD$gCsh0nNrsZv9VYQfe5Jn$9YMnD4hdyx62n$",
+            "nonce": 551289399,
+            "timestamp": "Tue, 07 Aug 2018 21:35:10 GMT"
+        }
+    ],
+    "paymentsSent": [
+        {
+            "blockId": 210237,
+            "value": 47661.2435,
+            "timestamp": "Wed, 08 Aug 2018 22:22:20 GMT"
+        },
+        {
+            "blockId": 210450,
+            "value": 11551.3014
+        },
+        {
+            "block_number": 324958,
+            "from_amount": 59041651,
+            "timestamp": 1538606407
+        }
+    ]
+}
