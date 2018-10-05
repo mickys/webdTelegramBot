@@ -6,7 +6,7 @@ const BACM_ADDRESS = 'WEBD$gCsh0nNrsZv9VYQfe5Jn$9YMnD4hdyx62n$';
 const WEBD_NETWORK_BLOCKS_URL = 'https://webdollar.network:5001/block';
 const WEBD_NETWORK_PAYMENTS_URL = 'https://webdollar.network:5001/address/' + BACM_ADDRESS + '?show_all_transactions=false';
 
-const TOKEN = 'INSERT_TOKEN_HERE';
+const TOKEN = 'INSERT_TOKEN_HERE#';
 const TELEGRAM_URL = 'https://api.telegram.org/' + TOKEN + '/sendMessage';
 const CHAT_ID = '@BACMpool';
 
@@ -26,6 +26,9 @@ if (isTokenSet()) {
                     isValidBlockSchema(lastBlock);
 
                     let lastBlockMined = getLastBlockMinedFromDb();
+
+                    console.log('lastBlock.miner:', lastBlock.miner);
+                    console.log('lastBlock.number:', lastBlock.number);
 
                     if (lastBlock.miner === BACM_ADDRESS && lastBlockMined.number !== lastBlock.number) {
                         writeLastBlockToDb(lastBlock);
@@ -60,9 +63,11 @@ if (isTokenSet()) {
                     console.log('Checking last payments...');
 
                     if (response.data.transactions.length) {
+                        console.log('response.data.transactions.length:', response.data.transactions.length);
                         let lastPayment = response.data.transactions[0];
                         let lastPaymentFromDb = getLastPaymentFromDb();
 
+                        console.log('lastPayment block_number:', lastPayment.block_number);
                         if (lastPayment.block_number !== lastPaymentFromDb.block_number) {
                             writeLastPaymentToDb(lastPayment);
                             const message = 'New payment made by BACMpool! Value: ' + toNormalAmount( lastPayment.from_amount ) + ' WEBD.';
